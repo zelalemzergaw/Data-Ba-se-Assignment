@@ -1,6 +1,6 @@
 /****** Object:  Table [dbo].[Sales_Representative] ******/
 CREATE TABLE [dbo].[Sales_Representative](
-  [salesRepID] [int] NOT NULL,
+  [salesRepID] INT IDENTITY(1,1),
   [fName] [varchar](50) NOT NULL,
   [lNmae] [varchar](50) NOT NULL,
  CONSTRAINT [PK_Sales_Representative] PRIMARY KEY CLUSTERED 
@@ -11,11 +11,11 @@ CREATE TABLE [dbo].[Sales_Representative](
 GO
 /****** Object:  Table [dbo].[Service] ******/
 CREATE TABLE [dbo].[Service](
-  [serviceNo] [varchar](50) NOT NULL,
+  [serviceNo] INT IDENTITY(1,1),
   [name] [varchar](50) NOT NULL,
   [country] [varchar](50) NOT NULL,
-  [peakStart] [datetime] NOT NULL,
-  [peakEnd] [datetime] NOT NULL,
+  [peakStart] [time] NOT NULL,
+  [peakEnd] [time] NOT NULL,
  CONSTRAINT [PK_Service] PRIMARY KEY CLUSTERED 
 (
   [serviceNo] ASC
@@ -25,31 +25,33 @@ GO
 /****** Object:  Table [dbo].[Rate] ******/
 
 CREATE TABLE [dbo].[Rate](
-  [code] [int] NOT NULL,
-  [peakRate] [real] NOT NULL,
-  [offPeakRate] [real] NOT NULL,
+  [rateID] INT IDENTITY(1,1),
   [effectiveDate] [date] NOT NULL,
-  [serviceNo] [int] NOT NULL,
+  [code] [int] NOT NULL,
+  [peak] [numeric](3,2) NOT NULL,
+  [offPeak] [numeric](3,2) NOT NULL,
+  [serviceNo] INT NOT NULL,
   CONSTRAINT [PK_Rate] PRIMARY KEY CLUSTERED 
 (
-  [code] ASC,
-  [serviceNo] ASC,
-  [effectiveDate] ASC
+  [rateID] ASC
 
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
 /****** Object:  Table [dbo].[Calls] ******/
+ALTER TABLE [dbo].[Calls]
+DROP call_time;
 
-CREATE TABLE [dbo].[Calls]([callsId][int] NOT NULL,
-  [fromCode] [int] NOT NULL,
-  [toCode] [int] NOT NULL,
-  [fromTel] [int] NOT NULL,
-  [toTel][date] NOT NULL,
+CREATE TABLE [dbo].[Calls](
+  [callsId]INT IDENTITY(1,1),
+  [from_code] [varchar](50) NOT NULL,
+  [to_code] [varchar](50) NOT NULL,
+  [from_tel] [varchar](50) NOT NULL,
+  [to_tel][varchar](50) NOT NULL,
   [duration] [int] NOT NULL,
-  [callDate] [date] NOT NULL,
-  [callTime] [int] NOT NULL,
-  [customerId] [int] NOT NULL,
+  [call_date] [date] NOT NULL,
+  [call_time] [float] NOT NULL,
+
  CONSTRAINT [PK_Calls] PRIMARY KEY CLUSTERED 
 (
   [callsId] ASC
@@ -74,14 +76,14 @@ CREATE TABLE [dbo].[Customer](
   [customerID] INT IDENTITY(1,1),
   [fName] [varchar](50) NOT NULL,
   [lName] [varchar](50) NOT NULL,
-  [telephoneNO] [int] NOT NULL,
-  [serviceNo] [int] NOT NULL,
+  [telephoneNO] varchar(50) NOT NULL,
+  [serviceNo] INT NOT NULL,
   [street] [varchar](50) NOT NULL,
   [city] [varchar](50) NOT NULL,
   [state] [varchar](50),
   [zipcode] [int],
   [country] [varchar](50) NOT NULL,
-  [salesRepId] [int] NOT NULL,
+  [salesRepId] INT NOT NULL,
   [commissionRate] [int] NOT NULL,
 
  CONSTRAINT [PK_Customer] PRIMARY KEY CLUSTERED 

@@ -6,26 +6,26 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-alter PROCEDURE [dbo].[AddNewCustomer](
+ALTER  PROCEDURE [dbo].[AddNewCustomer](
 @fName varchar(50),
 @lName varchar(50),
-@telephoneNo int,
+@telephoneNo varchar(50),
 @city varchar(50),
 @street varchar(50),
 @state varchar(50),
 @zipCode int,
 @country varchar(50),
 @salesRepID int,
-@serviceNo int,
 @serviceName varchar(50),
 @commissionRate int)
 
 AS
+
 BEGIN
 SET NOCOUNT ON;
+DECLARE @serviceNo int=0;
 DECLARE @telCheck int = 0;
 DECLARE @valid bit = 1;
-SET @serviceNo = 0;
 SET @telCheck = (SELECT COUNT(*) from Customer where telephoneNo = @telephoneNo);
 SELECT @serviceNo = serviceNo from Service where country = @country and 
 name = @serviceName;
@@ -52,16 +52,14 @@ END
 ELSE
 BEGIN
 INSERT INTO [dbo].[Customer]
-       ([fName],[lName],[telephoneNo],[serviceNo],[street],[city],[state],[zipCode],[country],[salesRepID],[commissionRate])
-	SELECT * FROM OPENROWSET('Microsoft.ACE.OLEDB.12.0',
- 'Excel 12.0;Database=D:\DBMS_Project\Docs\Services.xls', [Sheet1$])
+        ([fName],[lName],[telephoneNo],[serviceNo],[street],[city],[state],[zipCode],[country],[salesRepID],[commissionRate])
 VALUES
-        (@fName,@lName,@telephoneNo,@serviceNo, @street,@city,@state,@zipCode,@country,@salesRepID, @commissionRate)
+        (@fName,@lName,@telephoneNo,@serviceNo,@street,@city,@state,@zipCode,@country,@salesRepID, @commissionRate)
 PRINT 'Success: new customer is added.';
 END
 END
 
-EXEC AddNewCustomer 'Meron', 'tesfay', '01111111', 01, 'nkjhdg hgad', 'New York','NY', 1002, 'USA',22, 8 ;
+EXEC AddNewCustomer 'Bob', 'Janson', '319-400-6169','Fairfield', '4th st North','IA', 52557, 'usa',1, 'Spectra', 8 ;
 
-
-select * from Rate
+select * from Customer
+select * from Service
