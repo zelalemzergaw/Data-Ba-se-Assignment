@@ -1,12 +1,12 @@
-USE [Telephone Companey]
+USE [TelephoneCompany]
 GO
-/****** Object:  StoredProcedure [dbo].[InsertCallingCode]    Script Date: 11/18/2019 1:44:49 PM ******/
+/****** Object:  StoredProcedure [dbo].[InsertCallingCode] Script Date: 11/20/2019 3:17:19 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE PROCEDURE [dbo].[InsertCustomer]  @filePath  NVARCHAR(MAX)
+ALTER PROCEDURE [dbo].[InsertCallingCode]  @filePath  NVARCHAR(MAX)
 
 AS
 BEGIN
@@ -15,7 +15,7 @@ BEGIN
 
     DECLARE @sql NVARCHAR(MAX);
 
-    SET @sql =  ' INSERT INTO customer  SELECT * FROM OPENROWSET(''Microsoft.ACE.OLEDB.12.0'', ''Excel 12.0;Database='+
+    SET @sql =  N' INSERT INTO CallingCode  SELECT * FROM OPENROWSET(''Microsoft.ACE.OLEDB.12.0'', ''Excel 8.0;Database='+
          @filePath + ';'' ,''SELECT * FROM [Sheet1$]'')' 
     
         BEGIN TRY

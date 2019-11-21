@@ -19,7 +19,8 @@ BEGIN
 
 	DECLARE @sql NVARCHAR(MAX);
 
-	SET @sql =  ' INSERT INTO Calls SELECT * FROM OPENROWSET(''Microsoft.ACE.OLEDB.12.0'', ''Excel 8.0;Database='+ @filePath + ';'' ,''SELECT * FROM ['+ @sheetName +'$]'')' 
+	SET @sql =  ' INSERT INTO Calls SELECT * FROM OPENROWSET(''Microsoft.ACE.OLEDB.12.0'',
+	''Excel 8.0;Database='+ @filePath + ';'' ,''SELECT * FROM ['+ @sheetName +'$]'')' 
 	
 	
 		EXECUTE sp_executesql @sQL;

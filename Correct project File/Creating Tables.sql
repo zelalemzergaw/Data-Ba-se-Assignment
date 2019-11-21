@@ -25,33 +25,29 @@ GO
 /****** Object:  Table [dbo].[Rate] ******/
 
 CREATE TABLE [dbo].[Rate](
-  [rateID] INT IDENTITY(1,1),
+  [rateID] [int] IDENTITY(1,1) NOT NULL,
   [effectiveDate] [date] NOT NULL,
   [code] [int] NOT NULL,
-  [peak] [numeric](3,2) NOT NULL,
-  [offPeak] [numeric](3,2) NOT NULL,
-  [serviceNo] INT NOT NULL,
-  CONSTRAINT [PK_Rate] PRIMARY KEY CLUSTERED 
+  [peak] [numeric](3, 2) NOT NULL,
+  [offPeak] [numeric](3, 2) NOT NULL,
+  [serviceNo] [int] NOT NULL,
+ CONSTRAINT [PK_Rate] PRIMARY KEY CLUSTERED 
 (
   [rateID] ASC
-
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
 /****** Object:  Table [dbo].[Calls] ******/
-ALTER TABLE [dbo].[Calls]
-DROP call_time;
 
 CREATE TABLE [dbo].[Calls](
   [callsId]INT IDENTITY(1,1),
-  [from_code] [varchar](50) NOT NULL,
-  [to_code] [varchar](50) NOT NULL,
-  [from_tel] [varchar](50) NOT NULL,
-  [to_tel][varchar](50) NOT NULL,
+  [fromCode] [int] NOT NULL,
+  [toCode] [int] NOT NULL,
+  [fromTel] bigint NOT NULL,
+  [toTel] bigint NULL,
   [duration] [int] NOT NULL,
-  [call_date] [date] NOT NULL,
-  [call_time] [float] NOT NULL,
-
+  [callDate] [date] NOT NULL,
+  [callTime] [TIME] NOT NULL,
  CONSTRAINT [PK_Calls] PRIMARY KEY CLUSTERED 
 (
   [callsId] ASC
@@ -73,22 +69,21 @@ GO
 
 /****** Object:  Table [dbo].[[Customer]]  ******/
 CREATE TABLE [dbo].[Customer](
-  [customerID] INT IDENTITY(1,1),
-  [fName] [varchar](50) NOT NULL,
-  [lName] [varchar](50) NOT NULL,
-  [telephoneNO] varchar(50) NOT NULL,
-  [serviceNo] INT NOT NULL,
-  [street] [varchar](50) NOT NULL,
-  [city] [varchar](50) NOT NULL,
+  [fName] [varchar](50) NULL,
+  [lName] [varchar](50) NULL,
+  [telephoneNO] bigint NOT NULL,
+  [serviceNo] int NULL,
+  [street] [varchar](50) NULL,
+  [city] [varchar](50) NULL,
   [state] [varchar](50),
   [zipcode] [int],
-  [country] [varchar](50) NOT NULL,
-  [salesRepId] INT NOT NULL,
-  [commissionRate] [int] NOT NULL,
+  [country] [varchar](50) NULL,
+  [salesRepId] int  NULL,
+  [commissionRate] [int] NULL,
 
  CONSTRAINT [PK_Customer] PRIMARY KEY CLUSTERED 
 (
-  [customerID] ASC
+  [telephoneNO] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO

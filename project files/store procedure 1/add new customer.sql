@@ -6,7 +6,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-ALTER  PROCEDURE [dbo].[AddNewCustomer](
+Alter PROCEDURE [dbo].[AddNewCustomer](
 @fName varchar(50),
 @lName varchar(50),
 @telephoneNo varchar(50),
@@ -59,7 +59,7 @@ PRINT 'Success: new customer is added.';
 END
 END
 
-EXEC AddNewCustomer 'Bob', 'Janson', '319-400-6169','Fairfield', '4th st North','IA', 52557, 'usa',1, 'Spectra', 8 ;
-
+EXEC AddNewCustomer 'Bob', 'Janson', '319-400-6169','Fairfield', '4th st North','IA', 52557, 'Germany',1, 'Spectra', 8 ;
+EXEC AddNewCustomer 'zelalem', 'zergaw', '319-400-4569','Desmoines', '4th st south','IA', 52557, 'usa',2, 'Spectra', 7 ;
 select * from Customer
 select * from Service
